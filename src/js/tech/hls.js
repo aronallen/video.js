@@ -61,31 +61,31 @@ class Hlsjs extends Tech {
         case Hls.ErrorTypes.NETWORK_ERROR:
           // try to recover network error
           this.log('fatal network error encountered, try to recover');
-          this.hls.recoverNetworkError();
+          this.hls_.recoverNetworkError();
           break;
         case Hls.ErrorTypes.MEDIA_ERROR:
           this.log('fatal media error encountered, try to recover');
-          this.hls.recoverMediaError();
+          this.hls_.recoverMediaError();
           break;
         default:
           // cannot recover
-          this.hls.destroy();
-          this.player().error(data);
+          this.hls_.destroy();
+          this.error(data);
           break;
       }
     }
     switch (data.details) {
-      case this.hls.ErrorDetails.MANIFEST_LOAD_ERROR:
-      case this.hls.ErrorDetails.MANIFEST_LOAD_TIMEOUT:
-      case this.hls.ErrorDetails.MANIFEST_PARSING_ERROR:
-      case this.hls.ErrorDetails.LEVEL_LOAD_ERROR:
-      case this.hls.ErrorDetails.LEVEL_LOAD_TIMEOUT:
-      case this.hls.ErrorDetails.LEVEL_SWITCH_ERROR:
-      case this.hls.ErrorDetails.FRAG_LOAD_ERROR:
-      case this.hls.ErrorDetails.FRAG_LOOP_LOADING_ERROR:
-      case this.hls.ErrorDetails.FRAG_LOAD_TIMEOUT:
-      case this.hls.ErrorDetails.FRAG_PARSING_ERROR:
-      case this.hls.ErrorDetails.FRAG_APPENDING_ERROR:
+      case Hls.ErrorDetails.MANIFEST_LOAD_ERROR:
+      case Hls.ErrorDetails.MANIFEST_LOAD_TIMEOUT:
+      case Hls.ErrorDetails.MANIFEST_PARSING_ERROR:
+      case Hls.ErrorDetails.LEVEL_LOAD_ERROR:
+      case Hls.ErrorDetails.LEVEL_LOAD_TIMEOUT:
+      case Hls.ErrorDetails.LEVEL_SWITCH_ERROR:
+      case Hls.ErrorDetails.FRAG_LOAD_ERROR:
+      case Hls.ErrorDetails.FRAG_LOOP_LOADING_ERROR:
+      case Hls.ErrorDetails.FRAG_LOAD_TIMEOUT:
+      case Hls.ErrorDetails.FRAG_PARSING_ERROR:
+      case Hls.ErrorDetails.FRAG_APPENDING_ERROR:
         this.log(data.type);
         this.log(data.details);
         break;
