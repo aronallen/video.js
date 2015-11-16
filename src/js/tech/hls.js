@@ -40,25 +40,13 @@ class Hlsjs extends Tech {
    * @method createEl
    */
   createEl() {
-    this.hls_ = new Hls({debug:true});
-
+    this.hls_ = new Hls();
     this.el_ = Html5.prototype.createEl.apply(this, arguments);
 
 
     this.hls_.on(Hls.Events.MSE_ATTACHED, bind(this, this.onMseAttached));
     this.hls_.on(Hls.Events.MANIFEST_PARSED, bind(this, this.onManifestParsed));
     this.hls_.on(Hls.Events.ERROR, bind(this, this.onError));
-
-    function report (v) {
-      return function () {
-        console.log(v);
-      };
-    }
-
-    let hls = this.hls_;
-    for (let e in Hls.Events) {
-      hls.on(Hls.Events[e], report(e));
-    }
 
     this.hls_.attachVideo(this.el_);
     this.hls_.loadSource(this.options_.source.src);
@@ -134,7 +122,7 @@ Hlsjs.prototype.currentTime = Html5.prototype.currentTime;
 Hlsjs.prototype.play = Html5.prototype.play;
 Hlsjs.prototype.volume = Html5.prototype.volume;
 Hlsjs.prototype.duration = function () {
-  return Infinity;
+  return (this.options().live) ? Infinity : Html5.prototype.duration.apply(this, arguments);
 };
 Hlsjs.prototype.muted = Html5.prototype.muted;
 Hlsjs.prototype.setMuted = Html5.prototype.setMuted;
@@ -149,13 +137,15 @@ Hlsjs.prototype.seekable = Html5.prototype.seekable;
 Hlsjs.prototype.getPercent = Html5.prototype.getPercent;
 Hlsjs.prototype.getCache = Html5.prototype.getCache;
 
-
 Hlsjs.isSupported = function(){
-  // IE9 with no Media Player is a LIAR! (#984)
   return Hls.isSupported();
 };
 Hlsjs.canPlaySource = function (techId, source) {
-  return Hls.isSupported();
+  if (Html5.canPlaySource(techId, source)) {
+    return false;
+  } else {
+    return Hls.isSupported();
+  }
 };
 Hlsjs.canControlVolume = function () {
   return true;
