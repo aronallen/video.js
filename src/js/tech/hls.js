@@ -19,7 +19,7 @@ import {bind} from '../utils/fn';
 
 let navigator = window.navigator;
 
-class Hlsjs extends Tech {
+class Hlsjs extends Html5 {
 
   constructor(options, ready){
     super(options, ready);
@@ -36,8 +36,7 @@ class Hlsjs extends Tech {
     this.hls_.on(Hls.Events.ERROR, bind(this, this.onError));
 
     this.hls_.attachVideo(this.el_);
-    this.hls_.loadSource(this.options_.source.src);
-
+    this.src(this.options_.source.src);
 
     this.el_.tech = this;
     return this.el_;
@@ -52,7 +51,9 @@ class Hlsjs extends Tech {
       this.player().play();
     }
   }
-
+  setSrc (src) {
+    this.hls_.loadSource(src);
+  }
 
 
   onError (event, data) {
@@ -104,24 +105,6 @@ class Hlsjs extends Tech {
 
 }
 
-Hlsjs.prototype.currentTime = Html5.prototype.currentTime;
-Hlsjs.prototype.play = Html5.prototype.play;
-Hlsjs.prototype.volume = Html5.prototype.volume;
-Hlsjs.prototype.duration = function () {
-  return (this.options().live) ? Infinity : Html5.prototype.duration.apply(this, arguments);
-};
-Hlsjs.prototype.muted = Html5.prototype.muted;
-Hlsjs.prototype.setMuted = Html5.prototype.setMuted;
-Hlsjs.prototype.setVolume = Html5.prototype.setVolume;
-Hlsjs.prototype.paused = Html5.prototype.paused;
-Hlsjs.prototype.pause = Html5.prototype.pause;
-Hlsjs.prototype.setCurrentTime = Html5.prototype.setCurrentTime;
-Hlsjs.prototype.seeking = Html5.prototype.seeking;
-Hlsjs.prototype.seekable = Html5.prototype.seekable;
-Hlsjs.prototype.scrubbing = Html5.prototype.scrubbing;
-Hlsjs.prototype.seekable = Html5.prototype.seekable;
-Hlsjs.prototype.getPercent = Html5.prototype.getPercent;
-Hlsjs.prototype.getCache = Html5.prototype.getCache;
 
 Hlsjs.isSupported = function(){
   return Hls.isSupported();
