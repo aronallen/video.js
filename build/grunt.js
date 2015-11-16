@@ -290,9 +290,9 @@ module.exports = function(grunt) {
     },
     'github-release': {
       options: {
-        repository: 'videojs/video.js',
+        repository: 'aronallen/video.js',
         auth: {
-          user: process.env.VJS_GITHUB_USER,
+          user: 'aronallen',
           password: process.env.VJS_GITHUB_TOKEN
         },
         release: {
