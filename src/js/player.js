@@ -37,6 +37,7 @@ import ModalDialog from './modal-dialog';
 // Require html5 tech, at least for disposing the original video tag
 import Tech from './tech/tech.js';
 import Html5 from './tech/html5.js';
+import Hlsjs from './tech/hls.js';
 
 /**
  * An instance of the `Player` class is created when any of the Video.js setup methods are used to initialize a video.
@@ -479,6 +480,7 @@ class Player extends Component {
    * @private
    */
   loadTech_(techName, source) {
+    console.log(techName, source, this);
 
     // Pause and remove current playback technology
     if (this.tech_) {
@@ -1656,11 +1658,11 @@ class Player extends Component {
   canPlayType(type) {
     let can;
 
+
     // Loop through each playback technology in the options order
     for (let i = 0, j = this.options_.techOrder; i < j.length; i++) {
       let techName = toTitleCase(j[i]);
       let tech = Tech.getTech(techName);
-
       // Support old behavior of techs being registered as components.
       // Remove once that deprecated behavior is removed.
       if (!tech) {
