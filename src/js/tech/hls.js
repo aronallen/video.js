@@ -56,7 +56,6 @@ class Hlsjs extends Tech {
 
 
   onError (event, data) {
-    console.log(event ,data);
     if (data.fatal) {
       switch (data.type) {
         case Hls.ErrorTypes.NETWORK_ERROR:
