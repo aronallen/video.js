@@ -18,14 +18,7 @@ import Html5 from './html5.js';
 import {bind} from '../utils/fn';
 
 let navigator = window.navigator;
-/**
- * Flash Media Controller - Wrapper for fallback SWF API
- *
- * @param {Object=} options Object of option names and values
- * @param {Function=} ready Ready callback function
- * @extends Tech
- * @class Flash
- */
+
 class Hlsjs extends Tech {
 
   constructor(options, ready){
@@ -33,12 +26,6 @@ class Hlsjs extends Tech {
 
   }
 
-  /**
-   * Create the component's DOM element
-   *
-   * @return {Element}
-   * @method createEl
-   */
   createEl() {
     this.hls_ = new Hls();
     this.el_ = Html5.prototype.createEl.apply(this, arguments);
