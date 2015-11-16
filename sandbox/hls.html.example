@@ -31,7 +31,7 @@
   </video>
 
   <script>
-    videojs("vid1", {techOrder : ['hlsjs', 'flash'], hlsjs : {live : true}});
+    videojs("vid1", {techOrder : ['html5', 'hlsjs', 'flash'], hlsjs : {live : true}});
     vid = document.getElementById("vid1");
   </script>
 
