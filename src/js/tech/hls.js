@@ -33,6 +33,7 @@ class Hlsjs extends Html5 {
 
     this.hls_.on(Hls.Events.MSE_ATTACHED, bind(this, this.onMseAttached));
     this.hls_.on(Hls.Events.MANIFEST_PARSED, bind(this, this.onManifestParsed));
+    this.hls_.on(Hls.Events.LEVEL_LOADED, bind(this, this.onLevelLoaded));
     this.hls_.on(Hls.Events.ERROR, bind(this, this.onError));
 
     this.hls_.attachVideo(this.el_);
@@ -44,6 +45,10 @@ class Hlsjs extends Html5 {
 
   onMseAttached() {
     this.triggerReady();
+  }
+
+  onLevelLoaded(event, data) {
+    this.duration = data.details.live ? this.durationLive : Html5.prototype.duration;
   }
 
   onManifestParsed() {
@@ -101,7 +106,9 @@ class Hlsjs extends Html5 {
     return super();
   }
 
-
+  durationLive () {
+    return Infinity;
+  }
 
 }
 
